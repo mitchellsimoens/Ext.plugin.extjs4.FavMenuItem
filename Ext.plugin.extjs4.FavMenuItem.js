@@ -39,7 +39,9 @@ Ext.define('Ext.plugin.extjs4.FavMenuItem', {
 
         cmp.mon(fav, {
             scope     : me,
-            mousedown : me.handleFavClick
+            mousedown : me.handleFavClick,
+            mouseover : me.handleFavOver,
+            mouseout  : me.handleFavOut
         });
     },
 
@@ -48,6 +50,30 @@ Ext.define('Ext.plugin.extjs4.FavMenuItem', {
             cmp = me.cmp;
 
         return cmp.favEl;
+    },
+
+    handleFavOver: function(e, t) {
+        var me     = this,
+            cmp    = me.cmp,
+            marked = me.marked,
+            action = marked ? 'removeCls' : 'addCls',
+            el     = Ext.get(t);
+
+        if (marked === 'wait') { return; }
+
+        el[action](me.favCls + '-marked');
+    },
+
+    handleFavOut: function(e, t) {
+        var me     = this,
+            cmp    = me.cmp,
+            marked = me.marked,
+            action = marked ? 'addCls' : 'removeCls',
+            el     = Ext.get(t);
+
+        if (marked === 'wait') { return; }
+
+        el[action](me.favCls + '-marked');
     },
 
     handleFavClick: function(e, t) {
@@ -70,6 +96,7 @@ Ext.define('Ext.plugin.extjs4.FavMenuItem', {
         returned = func();
 
         if (returned === 'wait') {
+            me.marked = returned;
             return;
         } else if (returned) {
             me.setMarked(!me.marked);
