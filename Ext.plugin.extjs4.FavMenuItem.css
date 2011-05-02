@@ -1,0 +1,15 @@
+.x-menu-item-favorite {
+    position: absolute;
+    width: 16px;
+    height: 19px;
+    top: 4px;
+    right: 2px;
+    margin-right: 17px;
+    background: url('favorite.png') no-repeat -19px 0;
+}
+.x-menu-item-favorite-marked {
+    background: url('favorite.png') no-repeat 0 0;
+}
+.x-menu-item-favorite-clicked {
+    background: url('favorite.png') no-repeat -38px 0 !important;
+}

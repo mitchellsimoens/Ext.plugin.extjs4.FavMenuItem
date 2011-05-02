@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ext.plugin.extjs4.FavMenuItem</title>
+
+    <link rel="stylesheet" type="text/css" href="http://extjs4/resources/css/ext-all.css" />
+    <script type="text/javascript" src="http://extjs4/bootstrap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="Ext.plugin.extjs4.FavMenuItem.css" />
+    <script type="text/javascript" src="Ext.plugin.extjs4.FavMenuItem.js"></script>
+
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            var favHandlerTrue = function(item, plugin, e) {
+                return true;
+            }
+            var favHandlerFalse = function(item, plugin, e) {
+                return false;
+            }
+            var favHandlerWait = function(item, plugin, e) {
+                setTimeout(function() {
+                    plugin.setMarked(true);
+                }, 1000);
+                return 'wait';
+            }
+
+            var btn = Ext.create('Ext.button.Split', {
+                renderTo : Ext.getBody(),
+                text     : 'Hi',
+                menu     : {
+                    xtype : 'menu',
+                    items : [
+                        { text : 'Item - Plugin', plugins : { ptype : 'favmenuitem', handler : favHandlerFalse } },
+                        { xtype : 'menucheckitem', text : 'Check Item - Plugin', plugins : { ptype : 'favmenuitem', marked : true, handler : favHandlerWait } },
+                        {
+                            text    : 'Color Menu - Plugin',
+                            plugins : { ptype : 'favmenuitem', marked : true, handler : favHandlerTrue },
+                            menu    : { xtype : 'colormenu' }
+                        },
+                        {
+                            text    : 'Date Menu - Plugin',
+                            plugins : { ptype : 'favmenuitem', handler : favHandlerFalse },
+                            menu    : { xtype : 'datemenu' }
+                        }
+                    ]
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
